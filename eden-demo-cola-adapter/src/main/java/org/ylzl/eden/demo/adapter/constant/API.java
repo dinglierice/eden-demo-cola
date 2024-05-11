@@ -28,4 +28,5 @@ import lombok.experimental.UtilityClass;
 public class API {
 
 	public static final String WEB_API_PATH = "/api";
+	public static final String SCRIPT_API_PATH = "/script";
 }
