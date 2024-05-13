@@ -3,9 +3,11 @@ package org.ylzl.eden.demo.app.script.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
+import org.ylzl.eden.demo.app.script.service.executor.command.ScriptModifyCmdExe;
 import org.ylzl.eden.demo.app.script.service.executor.query.ScriptByIdQueryExe;
 import org.ylzl.eden.demo.client.script.api.ScriptService;
 import org.ylzl.eden.demo.client.script.dto.ScriptDTO;
@@ -26,6 +28,7 @@ import org.ylzl.eden.demo.client.script.dto.query.ScriptListByPageQry;
 @Service("script_service")
 public class ScriptServiceImpl implements ScriptService {
 	private final ScriptByIdQueryExe scriptByIdQueryExe;
+	private final ScriptModifyCmdExe scriptModifyCmdExe;
 
 	@Override
 	public Response addScript(ScriptAddCmd scriptAddCmd) {
@@ -33,8 +36,9 @@ public class ScriptServiceImpl implements ScriptService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public Response modifyScript(ScriptModifyCmd scriptModifyCmd) {
-		return null;
+		return scriptModifyCmdExe.execute(scriptModifyCmd);
 	}
 
 	@Override

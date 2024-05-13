@@ -1,5 +1,6 @@
 package org.ylzl.eden.demo.infrastructure.script.database.dataobject;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
@@ -30,6 +31,6 @@ public class ScriptDO implements Serializable {
 	private Long authorId;
 	@TableField("gmt_create")
 	private Date gmtCreate;
-	@TableField("gmt_update")
+	@TableField(value = "gmt_update")
 	private Date gmtUpdate;
 }

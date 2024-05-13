@@ -36,6 +36,8 @@
 	</properties>
 
 	<dependencies>
+
+
 		<!-- 领域层依赖 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
@@ -86,6 +88,14 @@
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-event-auditor-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
 		</dependency>
 	</dependencies>
 </project>

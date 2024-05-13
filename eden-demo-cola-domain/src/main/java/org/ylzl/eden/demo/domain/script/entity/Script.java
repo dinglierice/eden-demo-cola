@@ -18,6 +18,5 @@ import org.ylzl.eden.cola.domain.Entity;
 @Entity
 public class Script {
 	private int id;
-	private Long authorId;
 	private String script;
 }

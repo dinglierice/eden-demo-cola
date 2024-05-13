@@ -17,8 +17,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 @Data
 public class ScriptModifyCmd {
-	@NotNull
+	@NotNull(message = "脚本id不能为空")
 	private int id;
 	private String script;
-	private Long authorId;
 }

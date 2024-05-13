@@ -25,6 +25,9 @@ spring:
     enabled: true # 默认关闭，请按需开启
   messages: # 国际化消息
     basename: i18n/messages
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   main:
     allow-bean-definition-overriding: true
   lifecycle:

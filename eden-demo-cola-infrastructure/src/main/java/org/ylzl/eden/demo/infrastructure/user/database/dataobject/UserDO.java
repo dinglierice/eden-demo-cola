@@ -123,4 +123,10 @@ public class UserDO implements Serializable {
 	 */
 	@TableField("last_modified_date")
 	private LocalDateTime lastModifiedDate;
+
+	/**
+	 * 盐值
+	 */
+	@TableField("salt")
+	private String salt;
 }

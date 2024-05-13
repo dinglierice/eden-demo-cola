@@ -66,7 +66,10 @@ spring:
     props:
       sql.show: true
   liquibase:
-    enabled: true # 默认开启，请按需关闭
+    enabled: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   cloud:
     sentinel: # 服务流量治理
       enabled: false # 默认关闭，请按需开启
