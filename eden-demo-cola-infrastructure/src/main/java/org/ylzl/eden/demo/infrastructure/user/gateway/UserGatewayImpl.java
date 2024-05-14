@@ -90,6 +90,11 @@ public class UserGatewayImpl implements UserGateway {
 		userMapper.deleteById(user.getId());
 	}
 
+	@Override
+	public User getUserByName(String name) {
+		return null;
+	}
+
 	/**
 	 * 生产盐值密码
 	 * @param password

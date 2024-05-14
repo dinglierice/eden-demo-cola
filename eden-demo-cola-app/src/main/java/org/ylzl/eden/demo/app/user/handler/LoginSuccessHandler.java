@@ -39,7 +39,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		ServletOutputStream outputStream = httpServletResponse.getOutputStream();
 
 		String jwt = jwtUtils.generateToken(authentication.getName());
-		httpServletResponse.setHeader(jwtUtils.getHeader(), jwt);
+		httpServletResponse.setHeader(jwtUtils.getHEADER(), jwt);
 
 		SingleResponse<String> result = SingleResponse.of("login success");
 		outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));

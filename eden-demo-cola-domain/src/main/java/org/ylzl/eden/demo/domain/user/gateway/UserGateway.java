@@ -46,4 +46,11 @@ public interface UserGateway {
 	 * @param user
 	 */
 	void deleteById(User user);
+
+	/**
+	 * 根据名字查询用户
+	 * @param name
+	 * @return
+	 */
+	User getUserByName(String name);
 }

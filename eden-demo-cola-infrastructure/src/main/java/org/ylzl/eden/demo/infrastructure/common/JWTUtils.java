@@ -3,7 +3,6 @@ package org.ylzl.eden.demo.infrastructure.common;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
 
@@ -20,7 +19,7 @@ import java.util.Date;
 public class JWTUtils {
 	private final Long expire = 604800L ;
 	private final String secret = "abcdefghabcdefghabcdefghabcdefgh";
-	private final String header = "Authorization";
+	public final String HEADER = "Authorization";
 
 	/**
 	 * 生成token方法
