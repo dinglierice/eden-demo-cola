@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.ylzl.eden.demo.adapter.constant.RPC;
 import org.ylzl.eden.demo.app.user.executor.command.UserAddCmdExe;
+import org.ylzl.eden.demo.app.user.executor.command.UserLoginCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserModifyCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserRemoveCmdExe;
 import org.ylzl.eden.demo.app.user.executor.query.UserByIdQryExe;
@@ -37,7 +38,7 @@ import org.ylzl.eden.demo.client.user.api.UserService;
 @DubboService(timeout = RPC.DEFAULT_TIMEOUT)
 public class UserProvider extends UserServiceImpl implements UserService {
 
-	public UserProvider(UserAddCmdExe userAddCmdExe, UserModifyCmdExe userModifyCmdExe, UserRemoveCmdExe userRemoveCmdExe, UserByIdQryExe userByIdQryExe, UserListByPageQryExe userListByPageQryExe) {
-		super(userAddCmdExe, userModifyCmdExe, userRemoveCmdExe, userByIdQryExe, userListByPageQryExe);
+	public UserProvider(UserAddCmdExe userAddCmdExe, UserModifyCmdExe userModifyCmdExe, UserRemoveCmdExe userRemoveCmdExe, UserByIdQryExe userByIdQryExe, UserListByPageQryExe userListByPageQryExe, UserLoginCmdExe userLoginCmdExe) {
+		super(userAddCmdExe, userModifyCmdExe, userRemoveCmdExe, userByIdQryExe, userListByPageQryExe, userLoginCmdExe);
 	}
 }

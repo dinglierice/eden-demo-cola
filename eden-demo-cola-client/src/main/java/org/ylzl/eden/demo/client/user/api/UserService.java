@@ -18,6 +18,7 @@ package org.ylzl.eden.demo.client.user.api;
 
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
+import org.ylzl.eden.demo.client.user.dto.command.UserLoginCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
@@ -70,4 +71,11 @@ public interface UserService {
 	 * @return
 	 */
 	PageResponse<UserDTO> listUserByPage(UserListByPageQry query);
+
+	/**
+	 * 用户登录
+	 * @param userLoginCmd
+	 * @return
+	 */
+	Response login(UserLoginCmd userLoginCmd);
 }

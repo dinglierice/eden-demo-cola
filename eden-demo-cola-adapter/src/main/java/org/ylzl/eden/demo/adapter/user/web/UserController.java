@@ -16,6 +16,8 @@
 
 package org.ylzl.eden.demo.adapter.user.web;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,7 @@ import org.ylzl.eden.demo.adapter.constant.API;
 import org.ylzl.eden.demo.client.user.api.UserService;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
+import org.ylzl.eden.demo.client.user.dto.command.UserLoginCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
@@ -43,6 +46,7 @@ import javax.validation.Valid;
 @Slf4j
 @RequestMapping(API.WEB_API_PATH + "/users")
 @RestController
+@Api(value = "用户管理")
 public class UserController {
 
 	private final UserService userService;
@@ -102,5 +106,12 @@ public class UserController {
 	@GetMapping
 	public PageResponse<UserDTO> listUserByPage(@Valid @ModelAttribute UserListByPageQry query) {
 		return userService.listUserByPage(query);
+	}
+
+	@PostMapping("/login")
+	@ApiOperation(value = "用户登录")
+	public Response login(@RequestBody @Valid UserLoginCmd cmd) {
+		log.info("尝试登录");
+		return userService.login(cmd);
 	}
 }

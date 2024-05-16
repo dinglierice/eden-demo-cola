@@ -24,6 +24,7 @@ import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.demo.app.user.executor.command.UserAddCmdExe;
+import org.ylzl.eden.demo.app.user.executor.command.UserLoginCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserModifyCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserRemoveCmdExe;
 import org.ylzl.eden.demo.app.user.executor.query.UserByIdQryExe;
@@ -31,6 +32,7 @@ import org.ylzl.eden.demo.app.user.executor.query.UserListByPageQryExe;
 import org.ylzl.eden.demo.client.user.api.UserService;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
+import org.ylzl.eden.demo.client.user.dto.command.UserLoginCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
@@ -57,6 +59,8 @@ public class UserServiceImpl implements UserService {
 	private final UserByIdQryExe userByIdQryExe;
 
 	private final UserListByPageQryExe userListByPageQryExe;
+
+	private final UserLoginCmdExe userLoginCmdExe;
 
 	/**
 	 * 创建用户
@@ -125,5 +129,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public PageResponse<UserDTO> listUserByPage(UserListByPageQry query) {
 		return userListByPageQryExe.execute(query);
+	}
+
+	@Override
+	public Response login(UserLoginCmd userLoginCmd) {
+		return userLoginCmdExe.login(userLoginCmd);
 	}
 }

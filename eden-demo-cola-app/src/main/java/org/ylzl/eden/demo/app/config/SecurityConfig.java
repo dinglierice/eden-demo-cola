@@ -40,12 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    private static final String[] URL_WHITELIST = {
-      "/login",
-      "/logout",
-      "/captcha",
-      "/favicon.ico"
-    };
+    private static final String[] URL_WHITELIST = new String[]{
+		"/login",
+		"/logout",
+		"/captcha",
+		"/favicon.ico"
+	};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -65,6 +65,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(URL_WHITELIST).permitAll()
+				.antMatchers("/profile/**").anonymous()
+				.antMatchers("/common/download**").anonymous()
+				.antMatchers("/common/download/resource**").anonymous()
+				.antMatchers("/swagger-ui.html").anonymous()
+				.antMatchers("/swagger-resources/**").anonymous()
+				.antMatchers("/webjars/**").anonymous()
+				.antMatchers("/*/api-docs").anonymous()
+				.antMatchers("/druid/**").anonymous()
                 .anyRequest().authenticated()
                 // 异常处理器
                 .and()
