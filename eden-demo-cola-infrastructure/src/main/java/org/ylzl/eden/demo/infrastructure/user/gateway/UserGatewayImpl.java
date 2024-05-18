@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 import org.ylzl.eden.demo.domain.user.entity.User;
 import org.ylzl.eden.demo.domain.user.gateway.UserGateway;
+import org.ylzl.eden.demo.infrastructure.common.PasswordUtils;
 import org.ylzl.eden.demo.infrastructure.user.database.convertor.UserConvertor;
 import org.ylzl.eden.demo.infrastructure.user.database.UserMapper;
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
@@ -59,7 +60,7 @@ public class UserGatewayImpl implements UserGateway {
 		userDO.setLangKey("CN");
 		String salt = RandomStringUtils.randomAlphabetic(24);
 		userDO.setSalt(salt);
-		userDO.setPasswordHash(createHashedPassword(user.getPassword(), salt));
+		userDO.setPasswordHash(PasswordUtils.createHashedPassword(user.getPassword(), salt));
 		userMapper.insert(userDO);
 	}
 
@@ -76,7 +77,7 @@ public class UserGatewayImpl implements UserGateway {
 		if (StringUtils.isBlank(user.getPassword())) {
 			throw new RuntimeException("未传入新密码,无法更新信息");
 		}
-		userDO.setPasswordHash(createHashedPassword(user.getPassword(), salt));
+		userDO.setPasswordHash(PasswordUtils.createHashedPassword(user.getPassword(), salt));
 		userMapper.updateById(userDO);
 	}
 
@@ -92,25 +93,20 @@ public class UserGatewayImpl implements UserGateway {
 
 	@Override
 	public User getUserByName(String name) {
-		return null;
+		UserDO userDO = userMapper.selectByUsername(name);
+		return userConvertor.toEntity(userDO);
 	}
 
-	/**
-	 * 生产盐值密码
-	 * @param password
-	 * @param salt
-	 * @return
-	 * @throws NoSuchAlgorithmException
-	 */
-	private String createHashedPassword(String password, String salt)  {
-		try {
-			MessageDigest sha = MessageDigest.getInstance("SHA");
-			String confusePassword = password + salt;
-			byte[] bb = sha.digest(confusePassword.getBytes(StandardCharsets.UTF_8));
-			return new BigInteger(1, bb).toString(16);
-		} catch (Exception e) {
-			log.error("用户加密失败, 请检查密码输入 : password {}", password);
-			throw new RuntimeException("用户加密失败");
+	@Override
+	public boolean verifyUserLogin(User user) {
+		UserDO userDO = userMapper.selectByUsername(user.getLogin());
+		if (null == userDO) {
+			throw new RuntimeException("用户不存在");
 		}
+		boolean verifyResult = PasswordUtils.verifyLoginPassword(user.getLogin(), userDO.getSalt(), userDO.getPasswordHash());
+		if (verifyResult) {
+			return true;
+		}
+		return false;
 	}
 }

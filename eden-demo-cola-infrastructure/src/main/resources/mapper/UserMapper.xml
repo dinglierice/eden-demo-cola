@@ -46,8 +46,14 @@
 		FROM demo_user
 		<include refid="selectPageCondition"/>
 	</select>
+    <select id="selectByUsername"
+            resultType="org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO">
+		SELECT id, login, password_hash, salt, email, activated, locked, lang_key
+		FROM demo_user
+		where login = #{userName}
+	</select>
 
-	<!-- 分页条件 -->
+    <!-- 分页条件 -->
 	<sql id="selectPageCondition">
 		<where>
 			<if test="login != null">

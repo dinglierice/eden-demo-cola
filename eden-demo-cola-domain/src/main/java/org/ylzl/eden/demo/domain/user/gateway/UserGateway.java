@@ -53,4 +53,12 @@ public interface UserGateway {
 	 * @return
 	 */
 	User getUserByName(String name);
+
+
+	/**
+	 * 验证用户登录
+	 * @param user
+	 * @return
+	 */
+	boolean verifyUserLogin(User user);
 }

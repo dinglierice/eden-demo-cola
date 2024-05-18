@@ -39,4 +39,11 @@ public interface UserMapper extends BaseMapper<UserDO> {
 	 * @return 用户列表
 	 */
 	List<UserDO> selectPage(UserListByPageQry query);
+
+	/**
+	 * 根据用户名查询用户
+	 * @param username
+	 * @return
+	 */
+	UserDO selectByUsername(String username);
 }

@@ -19,8 +19,10 @@ package org.ylzl.eden.demo.app.user.assembler;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.ylzl.eden.demo.app.user.executor.command.UserLoginCmdExe;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
+import org.ylzl.eden.demo.client.user.dto.command.UserLoginCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.domain.user.entity.User;
@@ -63,6 +65,14 @@ public interface UserAssembler extends DTOAssembler<UserDTO, User> {
 	 * @return
 	 */
 	User toEntity(UserAddCmd cmd);
+
+	/**
+	 * DTO 转 Entity
+	 *
+	 * @param cmd
+	 * @return
+	 */
+	User toEntity(UserLoginCmd cmd);
 
 	/**
 	 * DTO 转 Entity

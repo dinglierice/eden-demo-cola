@@ -17,6 +17,7 @@
 package org.ylzl.eden.demo.adapter.user.web;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,9 @@ import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
+import org.ylzl.eden.demo.infrastructure.common.JWTUtils;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -50,6 +53,7 @@ import javax.validation.Valid;
 public class UserController {
 
 	private final UserService userService;
+	private final JWTUtils jwtUtils;
 
 	/**
 	 * 创建用户
@@ -57,7 +61,8 @@ public class UserController {
 	 * @param cmd
 	 * @return
 	 */
-	@PostMapping
+	@PostMapping("/create")
+	@ApiOperation(value = "用户注册")
 	public Response createUser(@Valid @RequestBody UserAddCmd cmd) {
 		return userService.createUser(cmd);
 	}
@@ -104,14 +109,19 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping
+	@ApiImplicitParam(name = "Authorization", value = "Authorization",required = true, dataType = "String",paramType="header")
 	public PageResponse<UserDTO> listUserByPage(@Valid @ModelAttribute UserListByPageQry query) {
 		return userService.listUserByPage(query);
 	}
 
 	@PostMapping("/login")
 	@ApiOperation(value = "用户登录")
-	public Response login(@RequestBody @Valid UserLoginCmd cmd) {
-		log.info("尝试登录");
-		return userService.login(cmd);
+	public Response login(HttpServletResponse httpServletResponse, @RequestBody @Valid UserLoginCmd cmd) {
+		Response response = userService.login(cmd);
+		if (response.isSuccess()) {
+			String jwtToken = jwtUtils.generateToken(cmd.getLogin());
+			httpServletResponse.setHeader(jwtUtils.HEADER, jwtToken);
+		}
+		return response;
 	}
 }
